@@ -80,26 +80,6 @@ const home = {
 
       const dateSchedule = home.dateSchedule(html, $);
 
-      const { browser, page } = await startPuppeteerSession();
-      await page.goto(process.env.URL);
-      //Wait for the page to be loaded
-
-      let schedule = await page.evaluate(async () => {
-        return await new Promise((resolve, reject) => {
-          const data = document.body.querySelectorAll(
-            "#LichChieuPhim .name-movie"
-          );
-
-          let title = [];
-
-          data.forEach((item) => {
-            title.push(item.innerText);
-          });
-
-          resolve(title);
-        });
-      });
-
       const date = new Date();
       const today = date.getDay();
 
@@ -117,7 +97,7 @@ const home = {
               dateSchedule,
               currentDay: today,
             },
-            data: schedule,
+            // data: schedule,
           },
         },
         timestamp: new Date().getTime(),
