@@ -1,0 +1,9 @@
+.nav {
+    height: calc(100vh - 4rem);
+}
+
+.name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
