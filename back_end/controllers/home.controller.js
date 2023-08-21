@@ -74,7 +74,6 @@ const home = {
     console.log("Loading page");
     const browser = await puppeteer.launch({
       headless: true,
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
     console.log("Browser opened");
     const page = await browser.newPage();
