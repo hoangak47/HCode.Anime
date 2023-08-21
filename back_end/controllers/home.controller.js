@@ -71,11 +71,13 @@ const home = {
     return dateSchedule;
   },
   schedule: async () => {
+    console.log("Loading page");
     const browser = await puppeteer.launch({
       headless: "new",
     });
+    console.log("Browser opened");
     const page = await browser.newPage();
-
+    console.log("Page created");
     await page.goto(process.env.URL);
     console.log("Page loaded");
 
@@ -161,6 +163,7 @@ const home = {
 
       const dateSchedule = home.dateSchedule(html, $);
 
+      console.log("Schedule loaded");
       const schedule = await home.schedule();
 
       const date = new Date();
