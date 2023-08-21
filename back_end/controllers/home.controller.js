@@ -72,9 +72,7 @@ const home = {
   },
   schedule: async () => {
     console.log("Loading page");
-    const browser = await puppeteer.launch({
-      headless: "new",
-    });
+    const browser = await puppeteer.launch();
     console.log("Browser opened");
     const page = await browser.newPage();
     console.log("Page created");
