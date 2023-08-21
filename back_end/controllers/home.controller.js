@@ -108,9 +108,7 @@ const home = {
 
       const browser = await puppeteer.launch({
         executablePath: revisionInfo.executablePath,
-        ignoreDefaultArgs: ["--disable-extensions"],
         headless: true,
-        args: ["--no-sandbox"],
       });
 
       const page = await browser.newPage();
