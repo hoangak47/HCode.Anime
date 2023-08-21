@@ -71,14 +71,14 @@ const home = {
     return dateSchedule;
   },
   schedule: async () => {
-    console.log("Loading page");
-    const browser = await puppeteer.launch();
-    console.log("Browser opened");
+    const browser = await puppeteer.launch({
+      headless: true,
+      args: ["--no-sandbox"],
+      ignoreDefaultArgs: ["--disable-extensions"],
+      timeout: 0,
+    });
     const page = await browser.newPage();
-    console.log("Page created");
     await page.goto(process.env.URL);
-    console.log("Page loaded");
-
     let schedule = await page.evaluate(async () => {
       const title_anime = document.body.querySelectorAll(
         "#LichChieuPhim .name-movie"
@@ -120,8 +120,6 @@ const home = {
       return schedule;
     });
 
-    console.log("Schedule loaded");
-
     return schedule;
   },
   comingSoon: (html, $) => {
@@ -161,7 +159,6 @@ const home = {
 
       const dateSchedule = home.dateSchedule(html, $);
 
-      console.log("Schedule loaded");
       const schedule = await home.schedule();
 
       const date = new Date();
