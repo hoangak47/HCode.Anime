@@ -103,7 +103,15 @@ const home = {
   },
   schedule: async () => {
     try {
-      const browser = await puppeteer.launch();
+      const browserFetcher = puppeteer.createBrowserFetcher();
+      let revisionInfo = await browserFetcher.download("1095492");
+
+      const browser = await puppeteer.launch({
+        executablePath: revisionInfo.executablePath,
+        ignoreDefaultArgs: ["--disable-extensions"],
+        headless: true,
+        args: ["--no-sandbox"],
+      });
 
       const page = await browser.newPage();
 
