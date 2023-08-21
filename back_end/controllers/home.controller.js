@@ -73,20 +73,10 @@ const home = {
   schedule: async () => {
     const browser = await puppeteer.launch({
       headless: "new",
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
     const page = await browser.newPage();
 
-    await page.setUserAgent(
-      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 " +
-        "(KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
-    );
-
     await page.goto(process.env.URL);
-
-    await page.click("#thu-2");
-
-    await page.waitForSelector("#LichChieuPhim");
 
     let schedule = await page.evaluate(async () => {
       const title_anime = document.body.querySelectorAll(
@@ -168,6 +158,8 @@ const home = {
 
       const dateSchedule = home.dateSchedule(html, $);
 
+      const schedule = await home.schedule();
+
       const date = new Date();
       const today = date.getDay();
 
@@ -187,6 +179,7 @@ const home = {
               dateSchedule,
               currentDay: today,
             },
+            data: schedule,
           },
           comingSoon: {
             title: "Phim sắp chiếu",
