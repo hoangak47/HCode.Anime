@@ -102,35 +102,39 @@ const home = {
     }
   },
   schedule: async () => {
-    const browser = await puppeteer.launch();
+    try {
+      const browser = await puppeteer.launch();
 
-    const page = await browser.newPage();
+      const page = await browser.newPage();
 
-    await page.goto(process.env.URL);
+      await page.goto(process.env.URL);
 
-    const schedule = [];
+      const schedule = [];
 
-    const monday = await home.getSchedule(page, "#thu-2");
-    const tuesday = await home.getSchedule(page, "#thu-3");
-    const wednesday = await home.getSchedule(page, "#thu-4");
-    const thursday = await home.getSchedule(page, "#thu-5");
-    const friday = await home.getSchedule(page, "#thu-6");
-    const saturday = await home.getSchedule(page, "#thu-7");
-    const sunday = await home.getSchedule(page, "#thu-8");
+      const monday = await home.getSchedule(page, "#thu-2");
+      const tuesday = await home.getSchedule(page, "#thu-3");
+      const wednesday = await home.getSchedule(page, "#thu-4");
+      const thursday = await home.getSchedule(page, "#thu-5");
+      const friday = await home.getSchedule(page, "#thu-6");
+      const saturday = await home.getSchedule(page, "#thu-7");
+      const sunday = await home.getSchedule(page, "#thu-8");
 
-    schedule.push(
-      monday,
-      tuesday,
-      wednesday,
-      thursday,
-      friday,
-      saturday,
-      sunday
-    );
+      schedule.push(
+        monday,
+        tuesday,
+        wednesday,
+        thursday,
+        friday,
+        saturday,
+        sunday
+      );
 
-    await browser.close();
+      await browser.close();
 
-    return schedule;
+      return schedule;
+    } catch (error) {
+      console.log(error);
+    }
   },
   comingSoon: (html, $) => {
     const comingSoon = [];
