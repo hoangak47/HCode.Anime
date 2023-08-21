@@ -21,7 +21,7 @@
     "filereader": "^0.10.3",
     "network-activity-viewer": "^1.0.10",
     "nodemon": "^3.0.1",
-    "puppeteer": "^19.6.1",
+    "puppeteer": "^19.7.2",
     "xmlhttprequest": "^1.8.0"
   }
 }
