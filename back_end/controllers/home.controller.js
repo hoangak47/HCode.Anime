@@ -77,6 +77,7 @@ const home = {
     const page = await browser.newPage();
 
     await page.goto(process.env.URL);
+    console.log("Page loaded");
 
     let schedule = await page.evaluate(async () => {
       const title_anime = document.body.querySelectorAll(
@@ -118,6 +119,8 @@ const home = {
 
       return schedule;
     });
+
+    console.log("Schedule loaded");
 
     return schedule;
   },
