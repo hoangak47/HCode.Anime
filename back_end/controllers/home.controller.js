@@ -168,8 +168,6 @@ const home = {
 
       const dateSchedule = home.dateSchedule(html, $);
 
-      const schedule = await home.schedule();
-
       const date = new Date();
       const today = date.getDay();
 
@@ -189,7 +187,6 @@ const home = {
               dateSchedule,
               currentDay: today,
             },
-            data: schedule,
           },
           comingSoon: {
             title: "Phim sắp chiếu",
