@@ -73,7 +73,12 @@ const home = {
   schedule: async () => {
     console.log("Loading page");
     const browser = await puppeteer.launch({
-      headless: true,
+      args: [
+        "--disable-setuid-sandbox",
+        "--no-sandbox",
+        "--single-process",
+        "--no-zygote",
+      ],
     });
     console.log("Browser opened");
     const page = await browser.newPage();
