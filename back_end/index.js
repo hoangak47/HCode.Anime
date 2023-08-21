@@ -1,17 +1,27 @@
 const express = require("express");
-const { scrapeLogic } = require("./scrapeLogic");
+const cors = require("cors");
+const dotenv = require("dotenv");
+
 const app = express();
 
-const PORT = process.env.PORT || 4000;
+app.use(express.json());
+app.use(cors());
+dotenv.config();
 
-app.get("/scrape", (req, res) => {
-  scrapeLogic(res);
+app.use("/api/home", require("./routers/home.router"));
+
+app.use((req, res, next) => {
+  const error = new Error("Not found");
+  error.status = 404;
+  next(error);
 });
 
-app.get("/", (req, res) => {
-  res.send("Render Puppeteer server is up and running!");
+app.use((error, req, res, next) => {
+  res.status(error.status || 500).send({
+    message: error.message,
+  });
 });
 
-app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`);
+app.listen(5000, () => {
+  console.log("Server is running on port 5000");
 });
