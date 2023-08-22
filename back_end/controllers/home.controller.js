@@ -101,41 +101,29 @@ const home = {
       console.log(error);
     }
   },
-  schedule: async () => {
+  schedule: async (req, res) => {
     try {
+      const date = new Date();
+      const today = date.getDay();
+      let { day } = req.query;
+      if (day === undefined) {
+        day = `#thu-${today + 1}`;
+      }
       await puppeteer.createBrowserFetcher().download("1095492");
-      const browser = await puppeteer.launch({
-        headless: true,
-        args: ["--no-sandbox"],
-      });
+      const browser = await puppeteer.launch();
 
       const page = await browser.newPage();
 
       await page.goto(process.env.URL);
 
-      const schedule = [];
-
-      const monday = await home.getSchedule(page, "#thu-2");
-      const tuesday = await home.getSchedule(page, "#thu-3");
-      const wednesday = await home.getSchedule(page, "#thu-4");
-      const thursday = await home.getSchedule(page, "#thu-5");
-      const friday = await home.getSchedule(page, "#thu-6");
-      const saturday = await home.getSchedule(page, "#thu-7");
-      const sunday = await home.getSchedule(page, "#thu-8");
-
-      schedule.push(
-        monday,
-        tuesday,
-        wednesday,
-        thursday,
-        friday,
-        saturday,
-        sunday
-      );
-
+      const schedule = await home.getSchedule(page, day);
       await browser.close();
 
-      return schedule;
+      return res.status(200).send({
+        msg: "Success",
+        data: [...schedule],
+        timestamp: new Date().getTime(),
+      });
     } catch (error) {
       console.log(error);
     }
@@ -175,11 +163,6 @@ const home = {
 
       const latest_Episodes = home.latest_Episodes(html, $).slice(0, 30);
 
-      const schedule = await home.schedule();
-
-      const date = new Date();
-      const today = date.getDay();
-
       const comingSoon = home.comingSoon(html, $);
 
       return res.status(200).send({
@@ -189,11 +172,6 @@ const home = {
           latest_Episodes: {
             title: "Phim mới cập nhật",
             data: latest_Episodes,
-          },
-          schedule: {
-            title: "Lịch chiếu",
-            currentDay: today - 1,
-            data: schedule,
           },
           comingSoon: {
             title: "Phim sắp chiếu",
