@@ -2,6 +2,8 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const puppeteer = require("puppeteer");
 
+const playwright = require("playwright-aws-lambda");
+
 const home = {
   carousel: (html, $) => {
     const carousel = [];
@@ -194,6 +196,62 @@ const home = {
   },
   test: async (req, res) => {
     try {
+      const browser = await playwright.launchChromium({
+        headless: true,
+        args: ["--no-sandbox"],
+      });
+      const page = await browser.newPage({ strictSelectors: false });
+
+      await page.goto(process.env.URL);
+
+      const schedule = await page.evaluate(async () => {
+        const title_anime = document.body.querySelectorAll(
+          "#LichChieuPhim .name-movie"
+        );
+
+        const link_anime = document.body.querySelectorAll("#LichChieuPhim a");
+
+        const episode_latest = document.body.querySelectorAll(
+          "#LichChieuPhim .episode-latest"
+        );
+
+        const rating = document.body.querySelectorAll(
+          "#LichChieuPhim .score span"
+        );
+
+        const img = document.body.querySelectorAll("#LichChieuPhim img");
+
+        const schedule = [];
+
+        for (let i = 0; i < title_anime.length; i++) {
+          const title = title_anime[i].innerText;
+          const link = link_anime[i].href.split("/")[4].slice(0, -5);
+          const episode = episode_latest[i].innerText;
+          const rating_anime = rating[i].innerText.replace("star", "").trim();
+          const img_anime =
+            img[i].src.split("/")[0] === "https:"
+              ? img[i].src
+              : `${process.env.URL + img[i].src}`;
+
+          schedule.push({
+            title,
+            link,
+            episode,
+            rating: rating_anime,
+            img: img_anime,
+          });
+        }
+
+        return schedule;
+      });
+
+      await browser.close();
+
+      return res.status(200).send({
+        msg: "Success",
+        data: [...schedule],
+        timestamp: new Date().getTime(),
+      });
     } catch (error) {}
   },
 };
