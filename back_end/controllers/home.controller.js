@@ -117,7 +117,10 @@ const home = {
 
       const page = await browser.newPage();
 
-      await page.goto(process.env.URL);
+      await page.goto(process.env.URL, {
+        waitUntil: "networkidle2",
+        timeout: 0,
+      });
 
       const schedule = await home.getSchedule(page, day);
       await browser.close();
