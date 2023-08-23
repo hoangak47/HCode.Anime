@@ -1,21 +1,15 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
-const puppeteer = require("puppeteer");
-
-const playwright = require("playwright-aws-lambda");
 
 const home = {
   carousel: (html, $) => {
     const carousel = [];
 
-    $(".owl-carousel a", html).each(async function () {
-      const img =
-        $(this).find("img").attr("src").split("/")[0] === "https:"
-          ? $(this).find("img").attr("src")
-          : `${process.env.URL + $(this).find("img").attr("src")}`;
-      const title = $(this).find(".name").text();
-      const episode_latest = $(this).find(".episode_latest").text().trim();
-      const link = $(this).attr("href").split("/")[4].slice(0, -5);
+    $("#sidebar .popular-post .item a ", html).each(async function () {
+      const img = $(this).find("img").attr("src");
+      const title = $(this).find(".title").text();
+      const episode_latest = $(this).find(".original_title").text().trim();
+      const link = $(this).attr("href").split("/")[3];
 
       carousel.push({
         img,
@@ -29,134 +23,68 @@ const home = {
   },
   latest_Episodes: (html, $) => {
     const latest_Episodes = [];
-    $(`.ah_content .movies-list .movie-item`, html).each(function () {
-      const title = $(this).find(".name-movie").text().trim();
-      const link = $(this).find("a").attr("href").split("/")[4].slice(0, -5);
-      const img =
-        $(this).find("img").attr("src").split("/")[0] === "https:"
-          ? $(this).find("img").attr("src")
-          : `${process.env.URL + $(this).find("img").attr("src")}`;
-      const episode_latest = $(this).find(".episode-latest").text().trim();
-      const rating = $(this)
-        .find(".score span")
-        .text()
-        .replace("star", "")
-        .trim();
-
+    $(`#halim-advanced-widget-3-ajax-box .grid-item`, html).each(function () {
+      const title = $(this).find(".entry-title").text().trim();
+      const link = $(this).find("a").attr("href").split("/")[3];
+      const img = $(this).find("img").attr("src");
+      const episode_latest = $(this).find(".episode").text().trim();
       latest_Episodes.push({
         title,
         link,
         img,
         episode_latest,
-        rating,
       });
     });
 
     return latest_Episodes;
   },
-  getSchedule: async (page, day) => {
-    try {
-      await page.click(day);
+  getSchedule: (html, $, day) => {
+    const schedule = [];
+    $(`#ajax-schedule-widget ${day} article`, html).each(function () {
+      // id = $(this).attr("id");
+      const dat = $(this).attr("id");
+      const link = $(this).find("a").attr("href").split("/")[3];
 
-      const waitDay = await page.waitForSelector("#LichChieuPhim .name-movie");
-      return await waitDay.evaluate(async () => {
-        const title_anime = document.body.querySelectorAll(
-          "#LichChieuPhim .name-movie"
-        );
-
-        const link_anime = document.body.querySelectorAll("#LichChieuPhim a");
-
-        const episode_latest = document.body.querySelectorAll(
-          "#LichChieuPhim .episode-latest"
-        );
-
-        const rating = document.body.querySelectorAll(
-          "#LichChieuPhim .score span"
-        );
-
-        const img = document.body.querySelectorAll("#LichChieuPhim img");
-
-        const schedule = [];
-
-        for (let i = 0; i < title_anime.length; i++) {
-          const title = title_anime[i].innerText;
-          const link = link_anime[i].href.split("/")[4].slice(0, -5);
-          const episode = episode_latest[i].innerText;
-          const rating_anime = rating[i].innerText.replace("star", "").trim();
-          const img_anime =
-            img[i].src.split("/")[0] === "https:"
-              ? img[i].src
-              : `${process.env.URL + img[i].src}`;
-
-          schedule.push({
-            title,
-            link,
-            episode,
-            rating: rating_anime,
-            img: img_anime,
-          });
-        }
-
-        return schedule;
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  },
-  schedule: async (req, res) => {
-    try {
-      const date = new Date();
-      const today = date.getDay();
-      let { day } = req.query;
-      if (day === undefined) {
-        day = `#thu-${today + 1}`;
-      }
-      const browserFetcher = puppeteer.createBrowserFetcher();
-      let revisionInfo = await browserFetcher.download("1095492");
-      const browser = await puppeteer.launch({
-        executablePath: revisionInfo.executablePath,
-      });
-
-      const page = await browser.newPage();
-
-      await page.goto(process.env.URL);
-
-      const schedule = await home.getSchedule(page, day);
-      await browser.close();
-
-      return res.status(200).send({
-        msg: "Success",
-        data: [...schedule],
-        timestamp: new Date().getTime(),
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  },
-  comingSoon: (html, $) => {
-    const comingSoon = [];
-
-    $("#nominations_movie .movie-item", html).each(function () {
-      const title = $(this).find(".name-movie").text().trim();
-      const link = $(this).find("a").attr("href").split("/")[4].slice(0, -5);
+      const title = $(this).find(".entry-title").text().trim();
+      const episode_latest = $(this).find(".episode").text().trim();
       const img = $(this).find("img").attr("src");
-      const episode_latest = $(this).find(".episode-latest").text().trim();
-      const rating = $(this)
-        .find(".score span")
-        .text()
-        .replace("star", "")
-        .trim();
 
-      comingSoon.push({
-        title,
+      schedule.push({
+        dat,
         link,
-        img,
+        title,
         episode_latest,
-        rating,
+        img,
       });
     });
 
-    return comingSoon;
+    return schedule;
+  },
+  schedule: (html, $) => {
+    try {
+      const monday = home.getSchedule(html, $, "#thu-2");
+      const tuesday = home.getSchedule(html, $, "#thu-3");
+      const wednesday = home.getSchedule(html, $, "#thu-4");
+      const thursday = home.getSchedule(html, $, "#thu-5");
+      const friday = home.getSchedule(html, $, "#thu-6");
+      const saturday = home.getSchedule(html, $, "#thu-7");
+      const sunday = home.getSchedule(html, $, "#chu-nhat");
+
+      return [
+        [...monday],
+        [...tuesday],
+        [...wednesday],
+        [...thursday],
+        [...friday],
+        [...saturday],
+        [...sunday],
+      ];
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  getDayOfWeek: () => {
+    return ["Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "Chủ nhật"];
   },
   getHome: async (req, res) => {
     try {
@@ -166,9 +94,9 @@ const home = {
 
       const carousel = home.carousel(html, $);
 
-      const latest_Episodes = home.latest_Episodes(html, $).slice(0, 30);
+      const latest_Episodes = home.latest_Episodes(html, $);
 
-      const comingSoon = home.comingSoon(html, $);
+      const schedule = home.schedule(html, $);
 
       return res.status(200).send({
         msg: "Success",
@@ -178,9 +106,10 @@ const home = {
             title: "Phim mới cập nhật",
             data: latest_Episodes,
           },
-          comingSoon: {
-            title: "Phim sắp chiếu",
-            data: comingSoon,
+          schedule: {
+            title: "Lịch chiếu",
+            day: home.getDayOfWeek(),
+            data: schedule,
           },
         },
         timestamp: new Date().getTime(),
@@ -190,66 +119,6 @@ const home = {
         message: error,
       });
     }
-  },
-  test: async (req, res) => {
-    try {
-      const browser = await playwright.launchChromium({
-        headless: true,
-        args: ["--no-sandbox"],
-      });
-      const page = await browser.newPage({ strictSelectors: false });
-
-      await page.goto(process.env.URL);
-
-      const schedule = await page.evaluate(async () => {
-        const title_anime = document.body.querySelectorAll(
-          "#LichChieuPhim .name-movie"
-        );
-
-        const link_anime = document.body.querySelectorAll("#LichChieuPhim a");
-
-        const episode_latest = document.body.querySelectorAll(
-          "#LichChieuPhim .episode-latest"
-        );
-
-        const rating = document.body.querySelectorAll(
-          "#LichChieuPhim .score span"
-        );
-
-        const img = document.body.querySelectorAll("#LichChieuPhim img");
-
-        const schedule = [];
-
-        for (let i = 0; i < title_anime.length; i++) {
-          const title = title_anime[i].innerText;
-          const link = link_anime[i].href.split("/")[4].slice(0, -5);
-          const episode = episode_latest[i].innerText;
-          const rating_anime = rating[i].innerText.replace("star", "").trim();
-          const img_anime =
-            img[i].src.split("/")[0] === "https:"
-              ? img[i].src
-              : `${process.env.URL + img[i].src}`;
-
-          schedule.push({
-            title,
-            link,
-            episode,
-            rating: rating_anime,
-            img: img_anime,
-          });
-        }
-
-        return schedule;
-      });
-
-      await browser.close();
-
-      return res.status(200).send({
-        msg: "Success",
-        data: [...schedule],
-        timestamp: new Date().getTime(),
-      });
-    } catch (error) {}
   },
 };
 
