@@ -22,7 +22,7 @@ import { getSeeAllMovieFailure, getSeeAllMovieStart, getSeeAllMovieSuccess } fro
 export const getHomeData = async (dispatch, axios) => {
     try {
         dispatch(getDataStart());
-        const response = await axios.get('/home');
+        const response = await axios.get('/api/home');
         dispatch(getDataSuccess(response.data));
     } catch (error) {
         console.log(error);
@@ -33,7 +33,7 @@ export const getHomeData = async (dispatch, axios) => {
 export const getDetailMovie = async (dispatch, axios, link) => {
     try {
         dispatch(getDetailStart());
-        const response = await axios.get(`/detail/${link}`);
+        const response = await axios.get(`/api/detail/${link}`);
         dispatch(getDetailSuccess(response.data));
     } catch (error) {
         console.log(error);
@@ -44,7 +44,7 @@ export const getDetailMovie = async (dispatch, axios, link) => {
 export const getGenre = async (dispatch, axios) => {
     try {
         dispatch(getGenreStart());
-        const response = await axios.get('/category');
+        const response = await axios.get('/api/category');
         dispatch(getGenreSuccess(response.data));
     } catch (error) {
         console.log(error);
@@ -55,7 +55,7 @@ export const getGenre = async (dispatch, axios) => {
 export const getGenreDetail = async (dispatch, axios, name, page) => {
     try {
         dispatch(getGenreDetailStart());
-        const response = await axios.get(`/category/${name}/page/${page}`);
+        const response = await axios.get(`/api/category/${name}/page/${page}`);
         dispatch(getGenreDetailSuccess(response.data));
     } catch (error) {
         console.log(error);
@@ -66,7 +66,7 @@ export const getGenreDetail = async (dispatch, axios, name, page) => {
 export const getSeeAllMovie = async (dispatch, axios, page) => {
     try {
         dispatch(getSeeAllMovieStart());
-        const response = await axios.get(`/latest-movie/page/${page}`);
+        const response = await axios.get(`/api/latest-movie/page/${page}`);
         dispatch(getSeeAllMovieSuccess(response.data));
     } catch (error) {
         console.log(error);
@@ -77,7 +77,7 @@ export const getSeeAllMovie = async (dispatch, axios, page) => {
 export const getSearchMovie = async (dispatch, axios, search) => {
     try {
         dispatch(getSearchStart());
-        const response = await axios.get(`/search?name=${search}`);
+        const response = await axios.get(`/api/search?name=${search}`);
         dispatch(getSearchSuccess(response.data));
     } catch (error) {
         console.log(error);
@@ -88,7 +88,7 @@ export const getSearchMovie = async (dispatch, axios, search) => {
 export const getSearchAllMovie = async (dispatch, axios, search, page = 1) => {
     try {
         dispatch(getSearchAllStart());
-        const response = await axios.get(`/search/all?name=${search}&page=${page}`);
+        const response = await axios.get(`/api/search/all?name=${search}&page=${page}`);
         dispatch(getSearchAllSuccess(response.data));
     } catch (error) {
         console.log(error);
@@ -99,7 +99,7 @@ export const getSearchAllMovie = async (dispatch, axios, search, page = 1) => {
 export const getmovie = async (dispatch, axios, name, episode) => {
     try {
         dispatch(getMovieStart());
-        const response = await axios.get(`/movie/${name}/${episode}`);
+        const response = await axios.get(`/api/movie/${name}/${episode}`);
         dispatch(getMovieSuccess(response.data));
     } catch (error) {
         console.log(error);
