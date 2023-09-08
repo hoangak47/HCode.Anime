@@ -17,7 +17,6 @@ function DetailMovie() {
     // const [loading, setLoading] = React.useState(false);
 
     const detail = useSelector((state) => state.detail.data?.data?.data);
-    console.log(detail);
     const loading = useSelector((state) => state.detail.data?.loading);
 
     React.useEffect(() => {
