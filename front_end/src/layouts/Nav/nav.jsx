@@ -41,7 +41,7 @@ function Nav() {
                             <div className="ml-4">Genre</div>
 
                             <div className="absolute left-full ml-4 bg-white shadow-md rounded-xl grid grid-cols-2 gap-2 p-2 w-80 group-hover:opacity-100 transition duration-300 ease-in-out z-10 opacity-0 invisible child ">
-                                {genre?.data?.category.map((item, index) => (
+                                {genre?.data?.category?.map((item, index) => (
                                     <Link
                                         key={index}
                                         to={`/category/${item.link}/page/1`}
