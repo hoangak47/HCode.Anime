@@ -1,0 +1,16 @@
+.content {
+    -webkit-mask-image: none;
+    mask-image: none;
+    overflow: hidden;
+    transition: height 0.3s linear;
+
+    &.collapsed {
+        -webkit-mask-image: linear-gradient(180deg, #000 30%, transparent);
+        mask-image: linear-gradient(180deg, #000 30%, transparent);
+    }
+
+    & p {
+        margin: 0 0 10px;
+    }
+}
+// max-h-[100px] overflow-hidden transition-[max-height] duration-300 ease-in-out

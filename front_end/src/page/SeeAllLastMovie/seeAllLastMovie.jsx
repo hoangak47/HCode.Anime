@@ -1,0 +1,36 @@
+import axios from 'axios';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import LoadMovieItems from '~/components/loadMovieItems';
+import PageInBottom from '~/components/pageInBottom';
+import Layout from '~/layouts/Layout';
+import { getSeeAllMovie } from '~/redux/features/apiRequest';
+
+function SeeAllLastMovie() {
+    const { page } = useParams();
+    const dispatch = useDispatch();
+
+    const data = useSelector((state) => state.seeAll.data);
+
+    React.useEffect(() => {
+        getSeeAllMovie(dispatch, axios, page);
+        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [page]);
+
+    React.useEffect(() => {}, [data]);
+
+    return (
+        <Layout>
+            <LoadMovieItems
+                loading={data?.loading}
+                data={data?.data?.data?.latest_Episodes}
+                title="Mới nhất"
+                pageInBottom={PageInBottom({ data: data?.data, page })}
+            />
+        </Layout>
+    );
+}
+
+export default SeeAllLastMovie;

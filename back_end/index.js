@@ -8,7 +8,12 @@ app.use(express.json());
 app.use(cors());
 dotenv.config();
 
-app.use("/api/home", require("./routers/home.router"));
+app.use("/api/home", require("./routers/home.router.js"));
+app.use("/api/latest-movie", require("./routers/latest-movie.router.js"));
+app.use("/api/detail", require("./routers/detail.router.js"));
+app.use("/api/category", require("./routers/category.router.js"));
+app.use("/api/search", require("./routers/search.router.js"));
+app.use("/api/movie", require("./routers/movie.router.js"));
 
 app.use((req, res, next) => {
   const error = new Error("Not found");

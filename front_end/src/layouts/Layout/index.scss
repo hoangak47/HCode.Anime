@@ -1,0 +1,15 @@
+.genre {
+    &:hover {
+        .child {
+            opacity: 1;
+            visibility: visible;
+        }
+        &::after {
+            content: '';
+            position: absolute;
+            left: 100%;
+            width: 20px;
+            height: 500%;
+        }
+    }
+}

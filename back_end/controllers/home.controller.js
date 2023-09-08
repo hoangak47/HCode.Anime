@@ -93,6 +93,9 @@ const home = {
       const $ = cheerio.load(html);
 
       const carousel = home.carousel(html, $);
+      const link_see_all = $("#halim-advanced-widget-3-ajax-box .see-more")
+        .attr("href")
+        .replace(process.env.URL, "");
 
       const latest_Episodes = home.latest_Episodes(html, $);
 
@@ -105,6 +108,7 @@ const home = {
           latest_Episodes: {
             title: "Phim mới cập nhật",
             data: latest_Episodes,
+            link_see_all,
           },
           schedule: {
             title: "Lịch chiếu",
@@ -115,7 +119,7 @@ const home = {
         timestamp: new Date().getTime(),
       });
     } catch (error) {
-      res.status(500).send({
+      return res.status(500).send({
         message: error,
       });
     }

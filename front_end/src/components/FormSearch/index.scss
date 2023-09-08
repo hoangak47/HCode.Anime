@@ -1,0 +1,4 @@
+form input[type='search']:focus ~ .search-items {
+    visibility: visible;
+    opacity: 1;
+}

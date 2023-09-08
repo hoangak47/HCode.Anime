@@ -127,7 +127,72 @@ export const SVGStar = ({ ...props }) => (
         <path
             d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z"
             strokeWidth="0"
-            fill="currentColor"
         ></path>
+    </svg>
+);
+
+export const SVGClock = ({ ...props }) => (
+    <svg
+        enableBackground="new 0 0 443.294 443.294"
+        height="512"
+        viewBox="0 0 443.294 443.294"
+        width="512"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}
+    >
+        <path
+            fill="currentColor"
+            d="m221.647 0c-122.214 0-221.647 99.433-221.647 221.647s99.433 221.647 221.647 221.647 221.647-99.433 221.647-221.647-99.433-221.647-221.647-221.647zm0 415.588c-106.941 0-193.941-87-193.941-193.941s87-193.941 193.941-193.941 193.941 87 193.941 193.941-87 193.941-193.941 193.941z"
+        />
+        <path fill="currentColor" d="m235.5 83.118h-27.706v144.265l87.176 87.176 19.589-19.589-79.059-79.059z" />
+    </svg>
+);
+
+export const SVGPlus = ({ ...props }) => (
+    <svg
+        stroke="currentColor"
+        fill="currentColor"
+        strokeWidth="0"
+        viewBox="0 0 448 512"
+        height="1em"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}
+    >
+        <path
+            fill="currentColor"
+            d="M416 288H288v128c0 35.3-28.7 64-64 64s-64-28.7-64-64V288H32c-17.7 0-32-14.3-32-32s14.3-32 32-32h128V96c0-35.3 28.7-64 64-64s64 28.7 64 64v128h128c17.7 0 32 14.3 32 32s-14.3 32-32 32z"
+        ></path>
+    </svg>
+);
+
+export const SVGMinus = ({ ...props }) => (
+    <svg
+        stroke="currentColor"
+        fill="currentColor"
+        strokeWidth="0"
+        viewBox="0 0 448 512"
+        height="1em"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}
+    >
+        <path
+            fill="currentColor"
+            d="M416 288H32c-17.7 0-32-14.3-32-32s14.3-32 32-32h384c17.7 0 32 14.3 32 32s-14.3 32-32 32z"
+        ></path>
+    </svg>
+);
+
+export const SVGPrev = ({ ...props }) => (
+    <svg
+        className="w-3 h-3"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 6 10"
+        {...props}
+    >
+        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 1 1 5l4 4" />
     </svg>
 );
