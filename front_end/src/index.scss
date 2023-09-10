@@ -18,6 +18,7 @@ body {
     padding: 0;
     text-rendering: optimizeSpeed;
     min-height: 100vh;
+    user-select: none;
 }
 
 ::-webkit-scrollbar {

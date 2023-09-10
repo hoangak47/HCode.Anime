@@ -29,6 +29,10 @@ function DetailMovie() {
     const [collapse, setCollapse] = React.useState(false);
 
     React.useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, []);
+
+    React.useEffect(() => {
         if (loading === false) {
             if (collapse) {
                 content.current.style.height = content.current.scrollHeight + 'px';

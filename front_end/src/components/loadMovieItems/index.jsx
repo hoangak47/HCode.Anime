@@ -27,7 +27,7 @@ function LoadMovieItems({ title, data, loading, seeAll, children, pageInBottom }
                     </Fragment>
                 ) : (
                     <Fragment>
-                        <span className="text-2xl font-bold ml-3">{title}</span>
+                        <span className="md:text-2xl text-lg font-bold ml-3">{title}</span>
                         {children}
                         <div className="grid grid-cols-2 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 justify-between mt-5 p-0">
                             {data.map((item, index) => (

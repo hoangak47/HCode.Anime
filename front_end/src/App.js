@@ -6,6 +6,8 @@ import Category from './page/Category/category';
 import Search from './page/Search/search';
 import Movie from './page/Movie/movie';
 
+import React from 'react';
+
 function App() {
     return (
         <Routes>

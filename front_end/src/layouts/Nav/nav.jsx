@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { SVGGenre, SVGPopular, SvGHome } from '~/assets/SVG';
 import Logo from '~/assets/images/Logo.png';
 import { getGenre } from '~/redux/features/apiRequest';
@@ -13,20 +13,30 @@ function Nav() {
 
     const genre = useSelector((state) => state.genre?.category);
 
-    const nav = useClickAway(() => {
+    const hangleRemoveActive = () => {
         const nav = document.querySelector('nav');
-        nav.classList.remove('active');
-    });
+        nav?.classList.remove('active');
+    };
+
+    const nav = useClickAway(() => {
+        hangleRemoveActive();
+    }, {});
 
     React.useEffect(() => {
         if (!genre?.data) getGenre(dispatch, axios);
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    const parameter = useParams();
+
+    React.useEffect(() => {
+        hangleRemoveActive();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [parameter]);
     return (
         <nav
             ref={nav}
-            className="fixed w-48 lg:w-64 p-8 -left-full md:left-[unset] flex justify-center bg-white shadow-md rounded-3xl h-full md:h-[calc(100%-4rem)] z-10 transition-all duration-300 linear"
+            className="fixed w-48 lg:w-64 p-8 -left-full md:left-[unset] flex justify-center bg-white shadow-md rounded-tr-3xl rounded-br-3xl md:rounded-3xl h-full md:h-[calc(100%-4rem)] z-10 transition-all duration-300 linear"
         >
             <div className="flex flex-col items-center  ">
                 <Link to="/">
@@ -64,49 +74,51 @@ function Nav() {
                         </div>
                     </div>
                 </div>
-                <div className="md:flex flex-col mt-8 w-full hidden">
-                    <span className="text-xl font-bold text-[#B5BAC3] mb-2">TOP VIEW</span>
-                    <div className="flex flex-col text-lg">
-                        <Link className="flex flex-row mt-5 w-full" to={`/detail/dau-pha-thuong-khung-phan-5`}>
-                            <img
-                                src="https://hhhkungfu.tv/wp-content/uploads/Dau-Pha-Thuong-Khung-5-320x449.jpg"
-                                alt=""
-                                className="w-9"
-                            />
-                            <div className="flex items-center justify-center p-2 h-14 w-[calc(100%-2.25rem)] rounded-e-lg bg-gradient-to-r from-teal-500 to-indigo-400 text-white">
-                                <span className="text-sm text-center name">Đấu Phá Thương Khung Phần 5</span>
-                            </div>
-                        </Link>
-                        <Link
-                            className="flex flex-row mt-5"
-                            to={`/detail/the-gioi-hoan-my`}
-                            state={{ link: 'the-gioi-hoan-my' }}
-                        >
-                            <img
-                                src="https://hhhkungfu.tv/wp-content/uploads/2022/01/The-Gioi-Hoan-My-320x449.jpg"
-                                alt=""
-                                className="w-9"
-                            />
-                            <div className="flex items-center justify-center p-2 h-14 w-[calc(100%-2.25rem)] rounded-e-lg bg-teal-500 text-white">
-                                <span className="text-sm text-center name">Thế Giới Hoàn Mỹ</span>
-                            </div>
-                        </Link>
-                        <Link
-                            className="flex flex-row mt-5"
-                            to={`/detail/thuong-nguyen-do`}
-                            state={{ link: 'thuong-nguyen-do' }}
-                        >
-                            <img
-                                src="https://hhhkungfu.tv/wp-content/uploads/Thuong-Nguyen-Do-300x449.jpg"
-                                alt=""
-                                className="w-9"
-                            />
-                            <div className="flex items-center justify-center p-2 h-14 w-[calc(100%-2.25rem)] rounded-e-lg bg-teal-500 text-white">
-                                <span className="text-sm text-center name">Thương Nguyên Đồ</span>
-                            </div>
-                        </Link>
+                {genre?.data?.category && (
+                    <div className="md:flex flex-col mt-8 w-full hidden">
+                        <span className="text-xl font-bold text-[#B5BAC3] mb-2">TOP VIEW</span>
+                        <div className="flex flex-col text-lg">
+                            <Link className="flex flex-row mt-5 w-full" to={`/detail/dau-pha-thuong-khung-phan-5`}>
+                                <img
+                                    src="https://hhhkungfu.tv/wp-content/uploads/Dau-Pha-Thuong-Khung-5-320x449.jpg"
+                                    alt=""
+                                    className="w-9"
+                                />
+                                <div className="flex items-center justify-center p-2 h-14 w-[calc(100%-2.25rem)] rounded-e-lg bg-gradient-to-r from-teal-500 to-indigo-400 text-white">
+                                    <span className="text-sm text-center name">Đấu Phá Thương Khung Phần 5</span>
+                                </div>
+                            </Link>
+                            <Link
+                                className="flex flex-row mt-5"
+                                to={`/detail/the-gioi-hoan-my`}
+                                state={{ link: 'the-gioi-hoan-my' }}
+                            >
+                                <img
+                                    src="https://hhhkungfu.tv/wp-content/uploads/2022/01/The-Gioi-Hoan-My-320x449.jpg"
+                                    alt=""
+                                    className="w-9"
+                                />
+                                <div className="flex items-center justify-center p-2 h-14 w-[calc(100%-2.25rem)] rounded-e-lg bg-teal-500 text-white">
+                                    <span className="text-sm text-center name">Thế Giới Hoàn Mỹ</span>
+                                </div>
+                            </Link>
+                            <Link
+                                className="flex flex-row mt-5"
+                                to={`/detail/thuong-nguyen-do`}
+                                state={{ link: 'thuong-nguyen-do' }}
+                            >
+                                <img
+                                    src="https://hhhkungfu.tv/wp-content/uploads/Thuong-Nguyen-Do-300x449.jpg"
+                                    alt=""
+                                    className="w-9"
+                                />
+                                <div className="flex items-center justify-center p-2 h-14 w-[calc(100%-2.25rem)] rounded-e-lg bg-teal-500 text-white">
+                                    <span className="text-sm text-center name">Thương Nguyên Đồ</span>
+                                </div>
+                            </Link>
+                        </div>
                     </div>
-                </div>
+                )}
                 <span className="w-full text-xs absolute bottom-5 text-center text-[#B5BAC3]">
                     HCode.Anime Copyright © 2023
                 </span>
