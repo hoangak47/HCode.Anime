@@ -19,10 +19,12 @@ import {
 } from './searchSlice';
 import { getSeeAllMovieFailure, getSeeAllMovieStart, getSeeAllMovieSuccess } from './seeAllMovieSlice';
 
+const api = 'https://hcode-anime-api.onrender.com';
+
 export const getHomeData = async (dispatch, axios) => {
     try {
         dispatch(getDataStart());
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/home`);
+        const response = await axios.get(`${api}/api/home`);
         dispatch(getDataSuccess(response.data));
     } catch (error) {
         console.log(error);
@@ -33,7 +35,7 @@ export const getHomeData = async (dispatch, axios) => {
 export const getDetailMovie = async (dispatch, axios, link) => {
     try {
         dispatch(getDetailStart());
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/detail/${link}`);
+        const response = await axios.get(`${api}/api/detail/${link}`);
         dispatch(getDetailSuccess(response.data));
     } catch (error) {
         console.log(error);
@@ -44,7 +46,7 @@ export const getDetailMovie = async (dispatch, axios, link) => {
 export const getGenre = async (dispatch, axios) => {
     try {
         dispatch(getGenreStart());
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/category`);
+        const response = await axios.get(`${api}/api/category`);
         dispatch(getGenreSuccess(response.data));
     } catch (error) {
         console.log(error);
@@ -55,7 +57,7 @@ export const getGenre = async (dispatch, axios) => {
 export const getGenreDetail = async (dispatch, axios, name, page) => {
     try {
         dispatch(getGenreDetailStart());
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/category/${name}/page/${page}`);
+        const response = await axios.get(`${api}/api/category/${name}/page/${page}`);
         dispatch(getGenreDetailSuccess(response.data));
     } catch (error) {
         console.log(error);
@@ -66,7 +68,7 @@ export const getGenreDetail = async (dispatch, axios, name, page) => {
 export const getSeeAllMovie = async (dispatch, axios, page) => {
     try {
         dispatch(getSeeAllMovieStart());
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/latest-movie/page/${page}`);
+        const response = await axios.get(`${api}/api/latest-movie/page/${page}`);
         dispatch(getSeeAllMovieSuccess(response.data));
     } catch (error) {
         console.log(error);
@@ -77,7 +79,7 @@ export const getSeeAllMovie = async (dispatch, axios, page) => {
 export const getSearchMovie = async (dispatch, axios, search) => {
     try {
         dispatch(getSearchStart());
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/search?name=${search}`);
+        const response = await axios.get(`${api}/api/search?name=${search}`);
         dispatch(getSearchSuccess(response.data));
     } catch (error) {
         console.log(error);
@@ -88,7 +90,7 @@ export const getSearchMovie = async (dispatch, axios, search) => {
 export const getSearchAllMovie = async (dispatch, axios, search, page = 1) => {
     try {
         dispatch(getSearchAllStart());
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/search/all?name=${search}&page=${page}`);
+        const response = await axios.get(`${api}/api/search/all?name=${search}&page=${page}`);
         dispatch(getSearchAllSuccess(response.data));
     } catch (error) {
         console.log(error);
@@ -99,7 +101,7 @@ export const getSearchAllMovie = async (dispatch, axios, search, page = 1) => {
 export const getmovie = async (dispatch, axios, name, episode) => {
     try {
         dispatch(getMovieStart());
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/movie/${name}/${episode}`);
+        const response = await axios.get(`${api}/api/movie/${name}/${episode}`);
         dispatch(getMovieSuccess(response.data));
     } catch (error) {
         console.log(error);

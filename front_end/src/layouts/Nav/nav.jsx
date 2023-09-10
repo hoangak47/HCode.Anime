@@ -17,7 +17,7 @@ function Nav() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return (
-        <div className="fixed invisible md:visible md:w-48 lg:w-64 p-8 flex justify-center bg-white shadow-md rounded-3xl nav z-10">
+        <div className="fixed w-48 lg:w-64 p-8 flex justify-center bg-white shadow-md rounded-3xl nav z-10">
             <div className="flex flex-col items-center  ">
                 <Link to="/">
                     <img src={Logo} alt="Logo" className="w-96 " />
@@ -40,21 +40,21 @@ function Nav() {
                             <SVGGenre className="w-5 h-5 " />
                             <div className="ml-4">Genre</div>
 
-                            <div className="absolute left-full ml-4 bg-white shadow-md rounded-xl grid grid-cols-2 gap-2 p-2 w-80 group-hover:opacity-100 transition duration-300 ease-in-out z-10 opacity-0 invisible child ">
+                            <div className="absolute top-full  md:top-auto md:left-full ml-4 bg-white shadow-md rounded-xl grid grid-cols-2 gap-2 p-2 md:w-80 w-60 group-hover:opacity-100 transition duration-300 ease-in-out z-10 opacity-0 invisible child ">
                                 {genre?.data?.category?.map((item, index) => (
                                     <Link
                                         key={index}
                                         to={`/category/${item.link}/page/1`}
                                         className="flex flex-row items-center p-2 rounded-xl hover:bg-[#E0E7FF] hover:text-gray-600 transform transition duration-300 ease-in-out cursor-pointer"
                                     >
-                                        <div className="ml-4 ">{item.name}</div>
+                                        <div className="ml-4 text-sm md:text-lg">{item.name}</div>
                                     </Link>
                                 ))}
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col mt-8 w-full">
+                <div className="flex flex-col mt-8 w-full invisible md:visible">
                     <span className="text-xl font-bold text-[#B5BAC3] mb-2">TOP VIEW</span>
                     <div className="flex flex-col text-lg">
                         <Link className="flex flex-row mt-5 w-full" to={`/detail/dau-pha-thuong-khung-phan-5`}>

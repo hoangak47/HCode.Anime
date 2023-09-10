@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import LoadEpisodes from '~/components/loadEpisodes';
@@ -34,15 +34,17 @@ function Movie() {
             <div className="flex flex-col xl:flex-row mt-8 gap-4">
                 <div className="flex-1 lg:flex-[3] flex flex-col">
                     {!movie.loading ? (
-                        <iframe
-                            className={`aspect-video bg-white p-4 rounded-2xl overflow-hidden ${
-                                !movie?.data?.data?.link1 && 'bg-black'
-                            }`}
-                            src={movie?.data?.data?.link1}
-                            width="100%"
-                            allowFullScreen
-                            title="movie"
-                        />
+                        <Fragment>
+                            <iframe
+                                className={`block aspect-video bg-white p-4 rounded-2xl overflow-hidden ${
+                                    !movie?.data?.data?.link1 && 'bg-black'
+                                }`}
+                                src={movie?.data?.data?.link1}
+                                width="100%"
+                                allowFullScreen
+                                title="movie"
+                            />
+                        </Fragment>
                     ) : (
                         <div className="aspect-video bg-gray-800 p-4 rounded-2xl overflow-hidden animate-pulse" />
                     )}
