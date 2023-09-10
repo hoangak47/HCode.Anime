@@ -7,6 +7,8 @@ import PageInBottom from '~/components/pageInBottom';
 import Layout from '~/layouts/Layout';
 import { getSearchAllMovie } from '~/redux/features/apiRequest';
 import { getSearchAllSuccess } from '~/redux/features/searchSlice';
+import { Helmet } from 'react-helmet';
+
 function Search() {
     const { name, page } = useParams();
 
@@ -30,14 +32,22 @@ function Search() {
     }, [dataSearch]);
 
     return (
-        <Layout>
-            <LoadMovieItems
-                loading={dataSearch?.loading}
-                data={dataSearch?.data?.data?.latest_Episodes}
-                title={dataSearch?.data?.data?.title}
-                pageInBottom={PageInBottom({ data: dataSearch?.data, page })}
-            />
-        </Layout>
+        <>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>{name}</title>
+                <meta name="description" content="Search" />
+            </Helmet>
+
+            <Layout>
+                <LoadMovieItems
+                    loading={dataSearch?.loading}
+                    data={dataSearch?.data?.data?.latest_Episodes}
+                    title={dataSearch?.data?.data?.title}
+                    pageInBottom={PageInBottom({ data: dataSearch?.data, page })}
+                />
+            </Layout>
+        </>
     );
 }
 

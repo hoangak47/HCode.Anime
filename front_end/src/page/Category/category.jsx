@@ -6,6 +6,7 @@ import LoadMovieItems from '~/components/loadMovieItems';
 import PageInBottom from '~/components/pageInBottom';
 import Layout from '~/layouts/Layout';
 import { getGenreDetail } from '~/redux/features/apiRequest';
+import { Helmet } from 'react-helmet';
 
 function Category() {
     const { page, name } = useParams();
@@ -19,14 +20,22 @@ function Category() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [page, name]);
     return (
-        <Layout>
-            <LoadMovieItems
-                loading={data?.loading}
-                data={data?.data?.data?.latest_Episodes}
-                title={`${data?.data?.data?.title} ${page > 1 ? ` - Page ${page}` : ''}`}
-                pageInBottom={PageInBottom({ data: data?.data, page, customLink: '/category' })}
-            />
-        </Layout>
+        <>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>{data?.data?.data?.title}</title>
+                <meta name="description" content="Category" />
+            </Helmet>
+
+            <Layout>
+                <LoadMovieItems
+                    loading={data?.loading}
+                    data={data?.data?.data?.latest_Episodes}
+                    title={`${data?.data?.data?.title} ${page > 1 ? ` - Page ${page}` : ''}`}
+                    pageInBottom={PageInBottom({ data: data?.data, page, customLink: '/category' })}
+                />
+            </Layout>
+        </>
     );
 }
 

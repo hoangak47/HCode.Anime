@@ -9,6 +9,7 @@ import axios from 'axios';
 import LoadMovieItems from '~/components/loadMovieItems';
 import Slide from '~/layouts/Slide';
 import Layout from '~/layouts/Layout';
+import { Helmet } from 'react-helmet';
 
 function Home() {
     const dispatch = useDispatch();
@@ -33,45 +34,55 @@ function Home() {
     }, [dataHome, today]);
 
     return (
-        <Layout dispatch={dispatch}>
-            <Slide data={dataHome?.data?.carousel} current={currentSlide} setCurrent={setCurrentSlide} />
+        <>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>HCode.Anime</title>
+                <meta name="description" content="Home" />
+            </Helmet>
+            <Layout dispatch={dispatch}>
+                <Slide data={dataHome?.data?.carousel} current={currentSlide} setCurrent={setCurrentSlide} />
 
-            <LoadMovieItems
-                seeAll={dataHome?.data?.latest_Episodes?.link_see_all}
-                title={dataHome?.data?.latest_Episodes.title}
-                data={dataHome?.data?.latest_Episodes?.data}
-            >
-                <img
-                    src="https://i.imgur.com/sJc3X3b.png"
-                    alt=""
-                    className="absolute -top-8 -left-8 w-20 md:block hidden"
-                />
-                <img
-                    src="https://i.imgur.com/QUvcecr.png"
-                    alt=""
-                    className="absolute -top-16 right-6 w-40 md:block hidden"
-                />
-            </LoadMovieItems>
+                <LoadMovieItems
+                    seeAll={dataHome?.data?.latest_Episodes?.link_see_all}
+                    title={dataHome?.data?.latest_Episodes.title}
+                    data={dataHome?.data?.latest_Episodes?.data}
+                >
+                    <img
+                        src="https://i.imgur.com/sJc3X3b.png"
+                        alt=""
+                        className="absolute -top-8 -left-8 w-20 md:block hidden"
+                    />
+                    <img
+                        src="https://i.imgur.com/QUvcecr.png"
+                        alt=""
+                        className="absolute -top-16 right-6 w-40 md:block hidden"
+                    />
+                </LoadMovieItems>
 
-            <LoadMovieItems title={dataHome?.data?.schedule.title} data={dataHome?.data?.schedule?.data[currentDay]}>
-                <div className="text-lg mt-3">
-                    {dataHome?.data?.schedule?.day?.map((item, index) => (
-                        <div
-                            key={index}
-                            onClick={() => setCurrentDay(index)}
-                            className={`inline-block px-3 cursor-pointer transition-all duration-300 ease-in-out ml-1 mb-2
+                <LoadMovieItems
+                    title={dataHome?.data?.schedule.title}
+                    data={dataHome?.data?.schedule?.data[currentDay]}
+                >
+                    <div className="text-lg mt-3">
+                        {dataHome?.data?.schedule?.day?.map((item, index) => (
+                            <div
+                                key={index}
+                                onClick={() => setCurrentDay(index)}
+                                className={`inline-block px-3 cursor-pointer transition-all duration-300 ease-in-out ml-1 mb-2
                 ${
                     currentDay === index
                         ? 'bg-teal-400 shadow-teal-00 text-white shadow-lg shadow-teal-500 rounded-md '
                         : 'hover:bg-teal-400  hover:text-white hover:shadow-lg hover:shadow-teal-500 hover:rounded-md '
                 }`}
-                        >
-                            {item}
-                        </div>
-                    ))}
-                </div>
-            </LoadMovieItems>
-        </Layout>
+                            >
+                                {item}
+                            </div>
+                        ))}
+                    </div>
+                </LoadMovieItems>
+            </Layout>
+        </>
     );
 }
 

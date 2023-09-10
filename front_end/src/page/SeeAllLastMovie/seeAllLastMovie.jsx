@@ -6,6 +6,7 @@ import LoadMovieItems from '~/components/loadMovieItems';
 import PageInBottom from '~/components/pageInBottom';
 import Layout from '~/layouts/Layout';
 import { getSeeAllMovie } from '~/redux/features/apiRequest';
+import { Helmet } from 'react-helmet';
 
 function SeeAllLastMovie() {
     const { page } = useParams();
@@ -22,14 +23,22 @@ function SeeAllLastMovie() {
     React.useEffect(() => {}, [data]);
 
     return (
-        <Layout>
-            <LoadMovieItems
-                loading={data?.loading}
-                data={data?.data?.data?.latest_Episodes}
-                title="Mới nhất"
-                pageInBottom={PageInBottom({ data: data?.data, page })}
-            />
-        </Layout>
+        <>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>See All Last Movie</title>
+                <meta name="description" content="See All Last Movie" />
+            </Helmet>
+
+            <Layout>
+                <LoadMovieItems
+                    loading={data?.loading}
+                    data={data?.data?.data?.latest_Episodes}
+                    title="Mới nhất"
+                    pageInBottom={PageInBottom({ data: data?.data, page })}
+                />
+            </Layout>
+        </>
     );
 }
 
