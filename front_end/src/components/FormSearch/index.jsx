@@ -43,7 +43,7 @@ function FormSearch() {
     }, [debouncedSearch]);
 
     return (
-        <form className="flex items-center justify-center relative ml-5 w-1/2" onSubmit={handleSubmit}>
+        <form className="flex items-center justify-center relative ml-5 w-full md:w-1/2" onSubmit={handleSubmit}>
             <input
                 type="search"
                 className="rounded-full p-2 pl-5 pr-10 w-full outline-none focus:ring-0 border-none bg-[#D1D5DB] text-lg "

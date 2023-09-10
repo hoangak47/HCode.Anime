@@ -13,3 +13,13 @@
         }
     }
 }
+
+nav.active {
+    left: 0;
+}
+
+@media (min-width: 768px) {
+    nav.active {
+        left: unset;
+    }
+}

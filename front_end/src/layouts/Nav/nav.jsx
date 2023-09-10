@@ -6,10 +6,17 @@ import { SVGGenre, SVGPopular, SvGHome } from '~/assets/SVG';
 import Logo from '~/assets/images/Logo.png';
 import { getGenre } from '~/redux/features/apiRequest';
 
+import { useClickAway } from '@uidotdev/usehooks';
+
 function Nav() {
     const dispatch = useDispatch();
 
     const genre = useSelector((state) => state.genre?.category);
+
+    const nav = useClickAway(() => {
+        const nav = document.querySelector('nav');
+        nav.classList.remove('active');
+    });
 
     React.useEffect(() => {
         if (!genre?.data) getGenre(dispatch, axios);
@@ -17,7 +24,10 @@ function Nav() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return (
-        <div className="fixed w-48 lg:w-64 p-8 flex justify-center bg-white shadow-md rounded-3xl nav z-10">
+        <nav
+            ref={nav}
+            className="fixed w-48 lg:w-64 p-8 -left-full md:left-[unset] flex justify-center bg-white shadow-md rounded-3xl h-full md:h-[calc(100%-4rem)] z-10 transition-all duration-300 linear"
+        >
             <div className="flex flex-col items-center  ">
                 <Link to="/">
                     <img src={Logo} alt="Logo" className="w-96 " />
@@ -54,7 +64,7 @@ function Nav() {
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col mt-8 w-full invisible md:visible">
+                <div className="md:flex flex-col mt-8 w-full hidden">
                     <span className="text-xl font-bold text-[#B5BAC3] mb-2">TOP VIEW</span>
                     <div className="flex flex-col text-lg">
                         <Link className="flex flex-row mt-5 w-full" to={`/detail/dau-pha-thuong-khung-phan-5`}>
@@ -101,7 +111,7 @@ function Nav() {
                     HCode.Anime Copyright © 2023
                 </span>
             </div>
-        </div>
+        </nav>
     );
 }
 

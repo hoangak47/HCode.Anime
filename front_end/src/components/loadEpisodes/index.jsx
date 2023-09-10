@@ -16,7 +16,7 @@ function LoadEpisodes({ className, data, currenEpisode, children, loading }) {
             ) : (
                 <Fragment>
                     {children}
-                    <div className={`m-auto flex flex-wrap overflow-y-auto ${className}`}>
+                    <div className={`flex flex-wrap overflow-y-auto ${className}`}>
                         {data?.map((item, index) => (
                             <Link
                                 to={`/watch/${item.link}`}

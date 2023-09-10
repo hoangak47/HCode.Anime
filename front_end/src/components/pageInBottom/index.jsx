@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import { SVGPrev } from '~/assets/SVG';
 
 function PageInBottom({ data, page, customLink }) {
-    console.log(data?.data?.pagination);
     return (
         <div className="flex items-center justify-center mt-6">
             <nav aria-label="Page navigation example">

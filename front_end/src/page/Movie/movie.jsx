@@ -37,9 +37,9 @@ function Movie() {
                         <Fragment>
                             <iframe
                                 className={`block aspect-video bg-white p-4 rounded-2xl overflow-hidden ${
-                                    !movie?.data?.data?.link1 && 'bg-black'
+                                    !movie?.data?.data?.linkMovie && 'bg-black'
                                 }`}
-                                src={movie?.data?.data?.link1}
+                                src={movie?.data?.data?.linkMovie}
                                 width="100%"
                                 allowFullScreen
                                 title="movie"
@@ -51,7 +51,7 @@ function Movie() {
 
                     <div className="flex-1 flex flex-col gap-4 mt-4 bg-white p-4 rounded-2xl overflow-hidden ">
                         <LoadEpisodes
-                            className={'max-h-72'}
+                            className={'max-h-72 '}
                             data={movie?.data?.data?.episodes}
                             currenEpisode={movie?.data?.data?.movieActive}
                             loading={movie.loading && !movie?.data?.data?.episodes}

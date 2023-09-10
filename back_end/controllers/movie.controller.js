@@ -19,35 +19,32 @@ const movieController = {
       const episodes = await detail.getEpisode($, "#content #listsv-1 li");
       const movieActive = $("#listsv-1 li.active").text();
 
-      const link1 =
-        $("iframe.embed-responsive-item").attr("src").includes("archive.org") ||
+      const linkMovie =
         $("iframe.embed-responsive-item")
           .attr("src")
           .includes("www.dailymotion.com") ||
+        $("iframe.embed-responsive-item").attr("src").includes("archive.org") ||
         $("iframe.embed-responsive-item").attr("src").includes("//ok.ru")
           ? $("iframe.embed-responsive-item").attr("src")
-          : $("#server-item-1").attr("data-link").includes("archive.org") ||
-            $("#server-item-1")
+          : $("#server-item-1")
               .attr("data-link")
               .includes("www.dailymotion.com") ||
+            $("#server-item-1").attr("data-link").includes("archive.org") ||
             $("#server-item-1").attr("data-link").includes("//ok.ru")
           ? $("#server-item-1").attr("data-link")
-          : $("#server-item-2").attr("data-link").includes("archive.org") ||
-            $("#server-item-2")
+          : $("#server-item-2")
               .attr("data-link")
               .includes("www.dailymotion.com") ||
+            $("#server-item-2").attr("data-link").includes("archive.org") ||
             $("#server-item-2").attr("data-link").includes("//ok.ru")
           ? $("#server-item-2").attr("data-link")
-          : $("#server-item-3").attr("data-link").includes("archive.org") ||
-            $("#server-item-3")
+          : $("#server-item-3")
               .attr("data-link")
               .includes("www.dailymotion.com") ||
+            $("#server-item-3").attr("data-link").includes("archive.org") ||
             $("#server-item-3").attr("data-link").includes("//ok.ru")
           ? $("#server-item-3").attr("data-link")
           : $("#server-item-1").attr("data-link");
-      const link2 = $("#server-item-1").attr("data-link");
-      const link3 = $("#server-item-2").attr("data-link");
-      const link4 = $("#server-item-3").attr("data-link");
 
       const carousel = await home.carousel(html, $);
 
@@ -57,12 +54,9 @@ const movieController = {
           title,
           link,
           movieActive,
-          link1,
-          link2,
-          link3,
-          link4,
+          linkMovie,
           carousel,
-          episodes,
+          episodes: episodes.reverse(),
         },
         time: new Date().getTime(),
       });
