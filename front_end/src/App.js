@@ -5,6 +5,7 @@ import SeeAllLastMovie from './page/SeeAllLastMovie/seeAllLastMovie';
 import Category from './page/Category/category';
 import Search from './page/Search/search';
 import Movie from './page/Movie/movie';
+import Error from './page/Error/error';
 
 import React from 'react';
 
@@ -18,6 +19,7 @@ function App() {
             <Route path="/search/:name/page/:page" element={<Search />} />
             <Route path="/search/:name" element={<Search />} />
             <Route path="/watch/:name/:episode" element={<Movie />} />
+            <Route path="*" element={<Error />} />
         </Routes>
     );
 }
