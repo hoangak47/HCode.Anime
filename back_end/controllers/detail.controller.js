@@ -47,7 +47,9 @@ const detail = {
           latest_episode: latest_episode,
           categoryMovie: categoryMovie,
           episodes: episodes,
-          contents: content,
+          contents:
+            content.slice(0, content.indexOf("<style>")) +
+            content.slice(content.lastIndexOf("</style>") + 8),
         },
         timestamp: new Date().getTime(),
       });
