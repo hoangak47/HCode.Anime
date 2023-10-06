@@ -48,8 +48,8 @@ const detail = {
           categoryMovie: categoryMovie,
           episodes: episodes,
           contents:
-            content.slice(0, content.indexOf("<style>")) +
-            content.slice(content.lastIndexOf("</style>") + 8),
+            content?.slice(0, content.indexOf("<style>")) +
+            content?.slice(content.lastIndexOf("</style>") + 8),
         },
         timestamp: new Date().getTime(),
       });
