@@ -54,7 +54,9 @@ const movieController = {
           title,
           link,
           movieActive,
-          linkMovie,
+          linkMovie: linkMovie.includes("http")
+            ? linkMovie
+            : "https:" + linkMovie,
           carousel,
           episodes: episodes.reverse(),
         },
