@@ -86,18 +86,34 @@ const home = {
   getDayOfWeek: () => {
     return ["Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "Chủ nhật"];
   },
+  getRandomElement(array, length) {
+    // const randomIndex = Math.floor(Math.random() * array.length);
+    // return array[randomIndex];
+    let result = [];
+    while (length > 0) {
+      const randomIndex = Math.floor(Math.random() * array.length);
+      result.push(array[randomIndex]);
+      length--;
+    }
+
+    return result;
+  },
   getHome: async (req, res) => {
     try {
       const response = await axios.get(process.env.URL);
       const html = response.data;
       const $ = cheerio.load(html);
 
-      const carousel = home.carousel(html, $);
-      const link_see_all = $("#halim-advanced-widget-3-ajax-box .see-more")
-        .attr("href")
-        .replace(process.env.URL, "");
+      const link_see_all = new URL(
+        $("#halim-advanced-widget-3-ajax-box .see-more").attr("href")
+      ).pathname;
 
       const latest_Episodes = home.latest_Episodes(html, $);
+
+      const carousel =
+        home.carousel(html, $).length > 0
+          ? home.carousel(html, $)
+          : home.getRandomElement(latest_Episodes, 5);
 
       const schedule = home.schedule(html, $);
 

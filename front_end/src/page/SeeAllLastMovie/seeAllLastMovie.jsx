@@ -10,6 +10,7 @@ import { Helmet } from 'react-helmet';
 
 function SeeAllLastMovie() {
     const { page } = useParams();
+    console.log(page);
     const dispatch = useDispatch();
 
     const data = useSelector((state) => state.seeAll.data);

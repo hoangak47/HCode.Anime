@@ -15,6 +15,7 @@ function Home() {
     const dispatch = useDispatch();
 
     const dataHome = useSelector((state) => state.home.data.data);
+    console.log(dataHome);
     const [currentSlide, setCurrentSlide] = React.useState(0);
 
     const today = new Date().getDay();

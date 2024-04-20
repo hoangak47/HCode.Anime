@@ -33,6 +33,7 @@ function Nav() {
         hangleRemoveActive();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [parameter]);
+
     return (
         <nav
             ref={nav}
@@ -80,7 +81,7 @@ function Nav() {
                         <div className="flex flex-col text-lg">
                             <Link className="flex flex-row mt-5 w-full" to={`/detail/dau-pha-thuong-khung-phan-5`}>
                                 <img
-                                    src="https://hhhkungfu.tv/wp-content/uploads/Dau-Pha-Thuong-Khung-5-320x449.jpg"
+                                    src="https://hhkungfu.tv/wp-content/uploads/2022/07/Dau-Pha-Thuong-Khung-5-300x449.jpg"
                                     alt=""
                                     className="w-9"
                                 />
@@ -94,7 +95,7 @@ function Nav() {
                                 state={{ link: 'the-gioi-hoan-my' }}
                             >
                                 <img
-                                    src="https://hhhkungfu.tv/wp-content/uploads/2022/01/The-Gioi-Hoan-My-320x449.jpg"
+                                    src="https://hhkungfu.tv/wp-content/uploads/2022/01/The-Gioi-Hoan-My-300x449.jpg"
                                     alt=""
                                     className="w-9"
                                 />
@@ -108,7 +109,7 @@ function Nav() {
                                 state={{ link: 'thuong-nguyen-do' }}
                             >
                                 <img
-                                    src="https://hhhkungfu.tv/wp-content/uploads/Thuong-Nguyen-Do-300x449.jpg"
+                                    src="https://hhkungfu.tv/wp-content/uploads/2023/06/Thuong-Nguyen-Do-300x449.jpg"
                                     alt=""
                                     className="w-9"
                                 />

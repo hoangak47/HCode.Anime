@@ -60,7 +60,7 @@ const latestMovie = {
 
       const link = $(this).find("span").html()
         ? null
-        : $(this).find("a").attr("href").replace(process.env.URL, "");
+        : new URL($(this).find("a").attr("href")).pathname;
 
       Page.push({
         page,
