@@ -81,7 +81,7 @@ function Nav() {
                         <div className="flex flex-col text-lg">
                             <Link className="flex flex-row mt-5 w-full" to={`/detail/dau-pha-thuong-khung-phan-5`}>
                                 <img
-                                    src="https://hhkungfu.tv/wp-content/uploads/2022/07/Dau-Pha-Thuong-Khung-5-300x449.jpg"
+                                    src={require('~/assets/images/Dau-Pha-Thuong-Khung-5-300x449.jpg')}
                                     alt=""
                                     className="w-9"
                                 />
@@ -95,7 +95,7 @@ function Nav() {
                                 state={{ link: 'the-gioi-hoan-my' }}
                             >
                                 <img
-                                    src="https://hhkungfu.tv/wp-content/uploads/2022/01/The-Gioi-Hoan-My-300x449.jpg"
+                                    src={require('~/assets/images/The-Gioi-Hoan-My-300x449.jpg')}
                                     alt=""
                                     className="w-9"
                                 />
@@ -109,7 +109,7 @@ function Nav() {
                                 state={{ link: 'thuong-nguyen-do' }}
                             >
                                 <img
-                                    src="https://hhkungfu.tv/wp-content/uploads/2023/06/Thuong-Nguyen-Do-300x449.jpg"
+                                    src={require('~/assets/images/Thuong-Nguyen-Do-300x449.jpg')}
                                     alt=""
                                     className="w-9"
                                 />
