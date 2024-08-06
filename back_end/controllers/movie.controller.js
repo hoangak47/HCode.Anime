@@ -2,14 +2,15 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const detail = require("./detail.controller");
 const home = require("./home.controller");
+const { getHtml } = require("../model/newURL/index.js");
 
 const movieController = {
   getMovie: async (req, res, next) => {
     try {
       const { name, episode } = req.params;
-
+      const new_url = await getHtml();
       const response = await axios.get(
-        process.env.URL + name + "/" + episode + ".html"
+        new_url + name + "/" + episode + ".html"
       );
       const html = response.data;
       const $ = cheerio.load(html);

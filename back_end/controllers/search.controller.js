@@ -1,16 +1,18 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 const latestMovie = require("./latest-movie.controller");
+const { getHtml } = require("../model/newURL/index.js");
 
 const searchController = {
   query: async (name, page) => {
+    const newURL = await getHtml();
     const response = await axios
       .request({
         method: "GET",
         url:
           page === undefined || page === 1
-            ? process.env.URL + `search/${name}`
-            : process.env.URL + `search/${name}/page/${page}`,
+            ? newURL + `search/${name}`
+            : newURL + `search/${name}/page/${page}`,
 
         timeout: 3000,
       })

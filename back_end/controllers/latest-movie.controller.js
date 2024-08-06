@@ -1,17 +1,19 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
+const { getHtml } = require("../model/newURL/index.js");
 
 const latestMovie = {
   getLatestMovie: async (req, res) => {
     try {
       const page = req.params.page;
+      const newURL = await getHtml();
       const response = await axios
         .request({
           method: "GET",
           url:
             page === 1
-              ? process.env.URL + "/latest-movie"
-              : process.env.URL + "/latest-movie/page/" + page,
+              ? newURL + "/latest-movie"
+              : newURL + "/latest-movie/page/" + page,
           timeout: 3000,
         })
         .catch((error) => {

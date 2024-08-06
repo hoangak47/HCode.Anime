@@ -1,11 +1,13 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 const latestMovie = require("./latest-movie.controller");
+const { getHtml } = require("../model/newURL/index.js");
 
 const category = {
   getCategory: async (req, res) => {
     try {
-      const response = await axios.get(process.env.URL);
+      const newURL = await getHtml();
+      const response = await axios.get(newURL);
       const html = response.data;
       const $ = cheerio.load(html);
 
@@ -34,10 +36,10 @@ const category = {
   getCategoryDetail: async (req, res) => {
     try {
       const { name, page } = req.params;
+
+      const newURL = await getHtml();
       const response = await axios.get(
-        page === 1
-          ? process.env.URL + "/" + name
-          : process.env.URL + "/" + name + "/page/" + page
+        page === 1 ? newURL + "/" + name : newURL + "/" + name + "/page/" + page
       );
       const html = response.data;
       const $ = cheerio.load(html);

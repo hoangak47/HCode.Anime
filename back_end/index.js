@@ -5,7 +5,12 @@ const dotenv = require("dotenv");
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    optionsSuccessStatus: 200,
+  })
+);
 dotenv.config();
 
 app.use("/api/home", require("./routers/home.router.js"));

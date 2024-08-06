@@ -1,38 +1,40 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 
+const { getHtml } = require("../model/newURL/index.js");
+
 const detail = {
   getDetail: async (req, res) => {
     try {
       const { name } = req.params;
-      const response = await axios.get(process.env.URL + name);
+      console.log(name);
+      const new_url = await getHtml();
+      console.log(new_url + name);
+      const response = await axios.get(new_url + name);
       const html = response.data;
       const $ = cheerio.load(html);
 
-      const img = $("#content img.movie-thumb").attr("src");
-      const title = $("#content .entry-title").text().trim();
-      const released = $("#content .released").text().trim();
-      const latest_episode = $("#content .episode span:nth-child(2)")
+      const img = $(".movie-thumb").attr("src");
+      const title = $(".entry-title").text().trim();
+      const released = $(".released").text().trim();
+      const latest_episode = $(".movie-detail .episode span:nth-child(2)")
         .text()
         .trim();
       const link =
-        $("#content .halim-watch-box a").attr("href").split("/")[3] +
+        $(" .halim-watch-box a").attr("href").split("/")[3] +
         "/" +
-        $("#content .halim-watch-box a")
-          .attr("href")
-          .split("/")[4]
-          .slice(0, -5);
+        $(" .halim-watch-box a").attr("href").split("/")[4].slice(0, -5);
 
-      const categoryMovie = await detail.getCategory($, "#content .category a");
+      const categoryMovie = await detail.getCategory($, ".category a");
 
-      const episodes = await detail.getEpisode($, "#content #listsv-1 li");
+      const episodes = await detail.getEpisode($, " #listsv-1 li");
 
       let content;
 
-      $("#content article.item-content").find("a").remove();
-      $("#content article.item-content").find("strong").remove();
-      if ($("#content article.item-content").find("p").length > 2) {
-        content = $("#content article.item-content").html().trim();
+      $(" article.item-content").find("a").remove();
+      $(" article.item-content").find("strong").remove();
+      if ($(" article.item-content").find("p").length > 2) {
+        content = $(" article.item-content").html().trim();
       } else {
         content = await detail.getContent(name);
       }

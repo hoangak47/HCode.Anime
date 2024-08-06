@@ -22,7 +22,7 @@ function Slide({ data, current, setCurrent }) {
             {data && (
                 <Fragment>
                     <div className="flex flex-col items-start ml-4 mb-3 md:ml-16 md:mb-10">
-                        <span className="text-lg lg:text-4xl font-bold text-white max-w-md">
+                        <span className="text-lg lg:text-4xl font-bold text-white max-w-sm">
                             {data[current]?.title}
                         </span>
                         <Link

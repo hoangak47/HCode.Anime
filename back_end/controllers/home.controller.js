@@ -1,5 +1,6 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
+const { getHtml } = require("../model/newURL/index.js");
 
 const home = {
   carousel: (html, $) => {
@@ -100,7 +101,8 @@ const home = {
   },
   getHome: async (req, res) => {
     try {
-      const response = await axios.get(process.env.URL);
+      const newURL = await getHtml();
+      const response = await axios.get(newURL);
       const html = response.data;
       const $ = cheerio.load(html);
 
