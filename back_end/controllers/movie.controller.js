@@ -22,11 +22,13 @@ const movieController = {
 
       const linkMovie =
         $("iframe.embed-responsive-item")
-          .attr("src")
+          .attr("data-src")
           .includes("www.dailymotion.com") ||
-        $("iframe.embed-responsive-item").attr("src").includes("archive.org") ||
-        $("iframe.embed-responsive-item").attr("src").includes("//ok.ru")
-          ? $("iframe.embed-responsive-item").attr("src")
+        $("iframe.embed-responsive-item")
+          .attr("data-src")
+          .includes("archive.org") ||
+        $("iframe.embed-responsive-item").attr("data-src").includes("//ok.ru")
+          ? $("iframe.embed-responsive-item").attr("data-src")
           : $("#server-item-1")
               .attr("data-link")
               .includes("www.dailymotion.com") ||
